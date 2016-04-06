@@ -78,20 +78,7 @@ public class AlertHandler extends AlertDialogSc  {
     }
 
 
-    public void display(String key, Context aContext) {
 
-        Activity theActivity = (Activity) aContext;
-
-        FragmentTransaction ft = theActivity.getFragmentManager().beginTransaction();
-        Fragment prev = theActivity.getFragmentManager().findFragmentByTag(key);
-
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        this.show(ft, key);
-    }
 
 
 

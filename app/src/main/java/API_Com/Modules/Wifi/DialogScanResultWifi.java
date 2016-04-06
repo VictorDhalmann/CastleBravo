@@ -42,6 +42,7 @@ public class DialogScanResultWifi extends AlertDialogSc {
     private BR_WifiScan theScanBR;
     private MyListAdapter myAdapter;
     private WifiManager theWifiManager;
+    private DialogConnectNetwork myDialogConnectNetwork;
 
     public static DialogScanResultWifi newInstance() {
 
@@ -82,7 +83,7 @@ public class DialogScanResultWifi extends AlertDialogSc {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        getActivity().unregisterReceiver(theScanBR);
+        //getActivity().unregisterReceiver(theScanBR);
     }
 
     @Override
@@ -93,29 +94,17 @@ public class DialogScanResultWifi extends AlertDialogSc {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               dismiss();
+
+                myDialogConnectNetwork = DialogConnectNetwork.newInstance(arrL_MyScanResult.get(position));
+                myDialogConnectNetwork.display("Dialog_connection",getActivity());
+                dismiss();
             }
         });
 
     }
 
 
-    /**
-     * Display the fragment.
-     * @param key
-     * @param aContext
-     */
-    public void display(String key, Context aContext) {
-        Activity theActivity = (Activity) aContext;
-        FragmentTransaction ft = theActivity.getFragmentManager().beginTransaction();
-        Fragment prev = theActivity.getFragmentManager().findFragmentByTag(key);
 
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-        this.show(ft, key);
-    }
 
     /**
      * Sort the List<ScanResult>, the wifi with the most signal are shown at the top the double are skipped
