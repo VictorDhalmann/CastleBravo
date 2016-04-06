@@ -78,11 +78,6 @@ public class AlertHandler extends AlertDialogSc  {
     }
 
 
-
-
-
-
-
     public AlertDialog getTheDialog() {
         return theDialog;
     }
