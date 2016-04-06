@@ -7,7 +7,7 @@ import android.app.DialogFragment;
  */
 public class MyAlertHandler extends DialogFragment  {
 
-    private NoticeDialogListener myAlertListener;
+    protected NoticeDialogListener myAlertListener;
 
     public void setOnAlertListener(NoticeDialogListener listener){
         myAlertListener = listener;

@@ -13,7 +13,7 @@ import android.os.Bundle;
 /**
  * Created by Guillaumee on 04/04/2016.
  */
-public class AlertHandler extends DialogFragment implements DialogInterface.OnClickListener {
+public class AlertHandler extends MyAlertHandler implements DialogInterface.OnClickListener {
 
     private Bundle paramBundle;
 
