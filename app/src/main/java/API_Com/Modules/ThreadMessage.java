@@ -33,6 +33,22 @@ public class ThreadMessage implements Parcelable {
     }
 
 
+    /*********************************************** GETTER ***********************************************/
+    public Exception getException() {
+        return anException;
+    }
+
+    public SocketState getState() {
+        return aState;
+    }
+
+    public String getString() {
+        return sString;
+    }
+
+
+
+    /*********************************************** PARCELABLE ***********************************************/
     protected ThreadMessage(Parcel in) {
         sString = in.readString();
     }
@@ -48,18 +64,6 @@ public class ThreadMessage implements Parcelable {
             return new ThreadMessage[size];
         }
     };
-
-    public Exception getException() {
-        return anException;
-    }
-
-    public SocketState getState() {
-        return aState;
-    }
-
-    public String getString() {
-        return sString;
-    }
 
 
     @Override

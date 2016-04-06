@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,12 +26,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import API_Com.DialogAndAlert.AlertDialogSc;
 import fr.telecom_physique.castlebravo.R;
 
 /**
  * Created by Guillaume.Ebert on 30/03/2016.
  */
-public class DialogScanResultWifi extends DialogFragment  {
+public class DialogScanResultWifi extends AlertDialogSc {
 
 
     private RelativeLayout myProgressBarLayout;
@@ -40,6 +42,7 @@ public class DialogScanResultWifi extends DialogFragment  {
     private BR_WifiScan theScanBR;
     private MyListAdapter myAdapter;
     private WifiManager theWifiManager;
+    private DialogConnectNetwork myDialogConnectNetwork;
 
     public static DialogScanResultWifi newInstance() {
 
@@ -80,32 +83,28 @@ public class DialogScanResultWifi extends DialogFragment  {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
-        getActivity().unregisterReceiver(theScanBR);
+        //getActivity().unregisterReceiver(theScanBR);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
+        myScanResultListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                myDialogConnectNetwork = DialogConnectNetwork.newInstance(arrL_MyScanResult.get(position));
+                myDialogConnectNetwork.display("Dialog_connection",getActivity());
+                dismiss();
+            }
+        });
+
     }
 
 
-    /**
-     * Display the fragment.
-     * @param key
-     * @param aContext
-     */
-    public void display(String key, Context aContext) {
-        Activity theActivity = (Activity) aContext;
-        FragmentTransaction ft = theActivity.getFragmentManager().beginTransaction();
-        Fragment prev = theActivity.getFragmentManager().findFragmentByTag(key);
 
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-        this.show(ft, key);
-    }
 
     /**
      * Sort the List<ScanResult>, the wifi with the most signal are shown at the top the double are skipped
@@ -150,7 +149,6 @@ public class DialogScanResultWifi extends DialogFragment  {
     }
 
     /*********************************************** PRIVATE CLASS ***********************************************/
-
     /**
      * Broadcast when a scan result is available
      */
@@ -170,7 +168,6 @@ public class DialogScanResultWifi extends DialogFragment  {
                 
                 /*Empty list*/
                 arrL_MyScanResult.clear();
-                //myAdapter.notifyDataSetChanged(); /*Update UI*/
 
                 sortListScanResult(theWifiManager.getScanResults());
                 
@@ -215,35 +212,10 @@ public class DialogScanResultWifi extends DialogFragment  {
 
             /*TODO set the correct icon */
 
-
             return convertView;
         }
 
 
     }
-
-    /**
-     * Composite object for a better handle of a Scan result.
-     * Add directly the value in int of the signal level calculate previously
-     */
-    private class MyScanResult {
-
-        private ScanResult myScanResult;
-        private int mySignalLevel;
-
-         public MyScanResult(ScanResult aScanResult, int aSignalLvl){
-             myScanResult = aScanResult;
-             mySignalLevel = aSignalLvl;
-         }
-
-        public ScanResult getDataNetwork() {return myScanResult;}
-
-        public int getSignalLevel(){
-            return mySignalLevel;
-        }
-
-
-    }
-
 
 }

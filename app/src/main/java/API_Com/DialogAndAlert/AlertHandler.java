@@ -13,7 +13,7 @@ import android.os.Bundle;
 /**
  * Created by Guillaumee on 04/04/2016.
  */
-public class AlertHandler extends MyAlertHandler implements DialogInterface.OnClickListener {
+public class AlertHandler extends AlertDialogSc  {
 
     private Bundle paramBundle;
 
@@ -76,24 +76,6 @@ public class AlertHandler extends MyAlertHandler implements DialogInterface.OnCl
         isABtnPressed = true;
 
     }
-
-
-    public void display(String key, Context aContext) {
-
-        Activity theActivity = (Activity) aContext;
-
-        FragmentTransaction ft = theActivity.getFragmentManager().beginTransaction();
-        Fragment prev = theActivity.getFragmentManager().findFragmentByTag(key);
-
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        this.show(ft, key);
-    }
-
-
 
 
     public AlertDialog getTheDialog() {

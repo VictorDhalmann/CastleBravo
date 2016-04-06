@@ -331,9 +331,6 @@ public class Wifi extends AbstractComModule implements Handler.Callback, NoticeD
     }
 
 
-    /***********************************************
-     * GETTER
-     ***********************************************/
     public int getMyId() {
         return myId;
     }
@@ -354,9 +351,7 @@ public class Wifi extends AbstractComModule implements Handler.Callback, NoticeD
         return myDialogScanResultWifi;
     }
 
-    /***********************************************
-     * SETTER
-     ***********************************************/
+
     public void setMyId(int myId) {
         this.myId = myId;
     }
